@@ -16,6 +16,7 @@ Func getAmaya()
         If WinExists("AMAYA OS Lite") Then
             $sID = ControlGetText("AMAYA OS Lite", "", "[CLASS:Edit; INSTANCE:22]")
             If ($sID == $oLD) Then
+                Sleep(50)
                 ContinueLoop
             Else
                 ConsoleWrite($sID & @CRLF)
