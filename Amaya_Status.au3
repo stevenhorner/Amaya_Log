@@ -1,6 +1,6 @@
-
 #include <FileConstants.au3>
 #include <StringConstants.au3>
+
 ;~ Set a hotkey Escape to exit the script
 HotKeySet("{ESC}", "_ExitScript")
 
@@ -43,12 +43,12 @@ Func getStats()
 			   ConsoleWrite("Job % = " & $sJpct & @CRLF)
 			   ConsoleWrite("Stitch  = " & $sCstitch & @CRLF)
 			   ConsoleWrite("Total Stitch = " & $sTstitch & @CRLF)
-			   ConsoleWrite("Hoop = " & $sHoop] & @CRLF)
+			   ConsoleWrite("Hoop = " & $sHoop & @CRLF)
 			   ConsoleWrite("Time Remaining = " & $sTremain & @CRLF)
 			   ConsoleWrite("Acti-feed = " & $sActifeed & @CRLF)
 				
                 ; Send to MQTT Broker
-                run('$sMqttPub -h $sHost-t $sTopic -m "{job:" & $sJob & ", jpct:" & $sJpct & ", cstitch:" & $sCstitch] & ", actifeed: & $sActifeed & "}", '', @SW_HIDE)
+                run('$sMqttPub -h $sHost-t $sTopic -m "{""job:""" & $sJob & "", ""jpct"":""" & $sJpct & "", ""cstitch:""" & $sCstitch & "", ""actifeed:""" & $sActifeed & ""}", '', @SW_HIDE)
 				
 				; Set $sOld to current stitch count before loop starts again
                 $sOld = $sCstitch
