@@ -1,6 +1,5 @@
 #include <FileConstants.au3>
 #include <StringConstants.au3>
-#include 'JSONgen.au3'
 
 ;~ Set a hotkey Escape to exit the script
 HotKeySet("{ESC}", "_ExitScript")
@@ -48,14 +47,10 @@ Func getStats()
                ConsoleWrite("Time Remaining = " & $sTremain & @CRLF)
                ConsoleWrite("Acti-feed = " & $sActifeed & @CRLF)
 
-               $oJson = New_Json()
+               $sJson = StringFormat('{\"cJob\":\"%s\",\"actifeed\":\"%s\",\"cStitch\":\"%s\"}', $sJob, $sActifeed, $sCstitch)
 
-               Json_AddElement($oJson,  "cJob", $sJob)
-               Json_AddElement($oJson,  "actifeed", $sActifeed)
-               Json_AddElement($oJson,  "cStitch", $sCstitch)
 
-               $TheJson = Json_GetJson($oJson)
-               $sMQTT = StringFormat('"%s" -h %s -t %s -m ' & '"%s"', $sMqttPub, $sHost, $sTopic, $TheJson)
+               $sMQTT = StringFormat('"%s" -h %s -t %s -m ' & '"%s"', $sMqttPub, $sHost, $sTopic, $sJson)
                ConsoleWrite($sMQTT & @CRLF)
 
                ; Send to MQTT Broker
