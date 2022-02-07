@@ -20,27 +20,37 @@ Func getAmaya()
         If WinExists("AMAYA OS Lite") Then
             $sID = ControlGetText("AMAYA OS Lite", "", "[CLASS:Edit; INSTANCE:22]")
 			Local $sArray = StringSplit($sID, "-")
-			Local $sTime = $sArray[1]
-			Local $sCluster = $sArray[2]
-			Local $sHead = $sArray[3]
-			Local $sDetail = $sArray[4]
-			Local $sMessage = $sHead & $sDetail
-            If ($sID == $oLD) Then
-                Sleep(50)
-                ContinueLoop
-            Else
-                ConsoleWrite(_NowCalcDate() & " - " & $sID & @CRLF)
-				ConsoleWrite("Time: " & $sTime & @CRLF)
-				ConsoleWrite("Cluster: " & $sCluster & @CRLF)
-				ConsoleWrite("Message: " & $sMessage & @CRLF)
-                ; Append a line
-                FileWrite($hFileOpen, _NowCalcDate() & " - " & $sID & @CRLF)
-				; $sJson = StringFormat('{\"sAmayaLog\":\"%s\"', $sID)
-				$sJson = StringFormat('{\"sTime\":\"%s\", \"sCluster\":\"%s\",\"sMessage\":\"%s\"}', $sTime, $sCluster, $sMessage)
-				$sMQTT = StringFormat('"%s" -h %s -t %s -m ' & '"%s"', $sMqttPub, $sHost, $sTopic, $sJson)
-				run($sMQTT, '', @SW_HIDE)
-                $oLd = $sID
-            EndIf
+			If $sArray[0] >=4 Then
+			   Local $sTime = $sArray[1]
+			   Local $sCluster = $sArray[2]
+			   Local $sHead = $sArray[3]
+			   Local $sDetail = $sArray[4]
+			   Local $sMessage = $sHead & $sDetail
+			ElseIf $sArray[0] ==3 Then
+			   Local $sTime = $sArray[1]
+			   Local $sCluster = $sArray[2]
+			   Local $sDetail = $sArray[3]
+			   Local $sMessage = $sCluster & $sDetail
+			Else
+			   Sleep(50)
+			   ContinueLoop
+			EndIf
+			If ($sID == $oLD) Then
+			   Sleep(50)
+			   ContinueLoop
+			Else
+			   ConsoleWrite(_NowCalcDate() & " - " & $sID & @CRLF)
+			   ConsoleWrite("Time: " & $sTime & @CRLF)
+			   ConsoleWrite("Cluster: " & $sCluster & @CRLF)
+			   ConsoleWrite("Message: " & $sMessage & @CRLF)
+			   ; Append a line
+			   FileWrite($hFileOpen, _NowCalcDate() & " - " & $sID & @CRLF)
+			   ; $sJson = StringFormat('{\"sAmayaLog\":\"%s\"', $sID)
+			   $sJson = StringFormat('{\"sTime\":\"%s\", \"sCluster\":\"%s\",\"sMessage\":\"%s\"}', $sTime, $sCluster, $sMessage)
+			   $sMQTT = StringFormat('"%s" -h %s -t %s -m ' & '"%s"', $sMqttPub, $sHost, $sTopic, $sJson)
+			   run($sMQTT, '', @SW_HIDE)
+			   $oLd = $sID
+			EndIf
         EndIf
         Sleep (50)
     WEnd
