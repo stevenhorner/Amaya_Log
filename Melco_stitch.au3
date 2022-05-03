@@ -21,6 +21,9 @@ Func getStats()
             Local $sData = WinGetText("Melco OS SE - [413291]")
             ; Split into an Array
             Local $aArray = StringSplit($sData, @CRLF)
+				If @error Then
+					ContinueLoop
+				EndIf
             ; Copy Array values into variables (easier to understand what they are)
 			Local $sLog = $aArray[11]
             Local $sJob = $aArray[13]
