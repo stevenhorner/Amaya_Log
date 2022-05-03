@@ -30,7 +30,7 @@ Func getStats()
             Local $sJpct = $aArray[20]
             Local $sCstitch = $aArray[47]
             Local $sActifeed = $aArray[61]
-            Local $sCspm = $aArray[42]
+            Local $sCspm = $aArray[44]
             Local $sTremain = $aArray[59]
             Local $sTstitch = $aArray[49]
             Local $sHoop = $aArray[58]
