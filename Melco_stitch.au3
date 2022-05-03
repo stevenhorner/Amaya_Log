@@ -49,7 +49,7 @@ Func getStats()
                ConsoleWrite("Time Remaining = " & $sTremain & @CRLF)
                ConsoleWrite("Acti-feed = " & $sActifeed & @CRLF)
 
-               $sJson = StringFormat('{\"cJob\":\"%s\",\"actifeed\":%s,\"cStitch\":%s,\"sCspm\":%s,\"sTstitch\":%s,\"cHoop\":\"%s\",\"sTremain\":\"%s\",\"sJpct\":\"%s\"}', $sJob, $sActifeed, $sCstitch, $sCspm, $sTstitch, $sHoop, $sTremain, $sJpct)
+               $sJson = StringFormat('{\"cJob\":\"%s\",\"actifeed\":%s,\"cStitch\":%s,\"sCspm\":%s,\"sTstitch\":%s,\"cHoop\":\"%s\",\"sTremain\":\"%s\",\"sJpct\":\"%s\",\"sLog\":\"%s\"}', $sJob, $sActifeed, $sCstitch, $sCspm, $sTstitch, $sHoop, $sTremain, $sJpct, $sLog)
 
 
                $sMQTT = StringFormat('"%s" -h %s -t %s -m ' & '"%s"', $sMqttPub, $sHost, $sTopic, $sJson)
