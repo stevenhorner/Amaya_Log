@@ -1,6 +1,9 @@
 #include <FileConstants.au3>
 #include <StringConstants.au3>
 
+; Call function when Exit error
+OnAutoItExitRegister("_ExitRegister")
+
 ;~ Set a hotkey Escape to exit the script
 HotKeySet("{ESC}", "_ExitScript")
 
@@ -73,3 +76,13 @@ EndFunc
 Func _ExitScript()
     Exit
 EndFunc
+
+; Function to handle Script Exit errors, often happens when the Melco Program is close.
+Func _ExitRegister()
+    If @exitCode = 1 Then
+        ConsoleWrite("exitCode = " & @exitCode & "   " & "exitMethod = " & @exitMethod & @CRLF)
+        ; send yourself a Telegram message warning (your Telegram API integration)
+        ; or send it by running another script etc...
+	Run(@ScriptDir & "\Melco_stitch_launch.exe" & " /ErrorStdOut")
+    EndIf
+EndFunc   ;==>_ExitRegister
